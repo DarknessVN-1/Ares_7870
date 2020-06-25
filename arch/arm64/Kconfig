@@ -1054,5 +1054,3 @@ endif
 source "lib/Kconfig"
 
 source "arch/arm64/hotplug/AUTOSMP/Kconfig"
-
-source "arch/arm64/hotplug/AIO_PLUG/Kconfig"

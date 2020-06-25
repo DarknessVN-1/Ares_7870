@@ -59,9 +59,8 @@ core-$(CONFIG_KVM) += arch/arm64/kvm/
 core-$(CONFIG_XEN) += arch/arm64/xen/
 core-$(CONFIG_CRYPTO) += arch/arm64/crypto/
 # Hotplugs
-obj-y		:= autosmp.o aio_hotplug.o
+obj-y		:= autosmp.o
 core-$(CONFIG_ASMP)	+= arch/arm64/hotplug/AUTOSMP/
-core-$(CONFIG_AIO_HOTPLUG)	+= arch/arm64/hotplug/AIO_PLUG/
 # End
 libs-y		:= arch/arm64/lib/ $(libs-y)
 libs-y		+= $(LIBGCC)
