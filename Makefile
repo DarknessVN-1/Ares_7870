@@ -355,7 +355,7 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		= $(CCACHE) $(CROSS_COMPILE)as
 LD		= $(CCACHE) $(CROSS_COMPILE)ld
-CC		= $(CCACHE) $(CROSS_COMPILE)gcc -O3 -g0 -pipe
+CC		= $(CCACHE) $(CROSS_COMPILE)gcc -Ofast -g0 -pipe
 CPP		= $(CCACHE) $(CC) -E
 AR		= $(CCACHE) $(CROSS_COMPILE)ar
 NM		= $(CCACHE) $(CROSS_COMPILE)nm
@@ -402,8 +402,8 @@ LINUXINCLUDE    := \
 		$(USERINCLUDE)
 
 KBUILD_CLFAGS += -floop-nest-optimize -fgraphite-identity -ftree-loop-distribution
-KBUILD_CPPFLAGS := -O3 -g0 -pipe -D__KERNEL__
-KBUILD_CFLAGS   := -O3 -g0 -pipe -fno-strict-aliasing -fno-common -w -std=gnu89
+KBUILD_CPPFLAGS := -Ofast -g0 -pipe -D__KERNEL__
+KBUILD_CFLAGS   := -Ofast -g0 -pipe -fno-strict-aliasing -fno-common -w -std=gnu89
 AARCH64_CFLAGS	:= -march=armv8.1-a+fp+simd+crypto+crc -mtune=cortex-a53
 KBUILD_CFLAGS_KERNEL += $(AARCH64_CFLAGS)
 KBUILD_CFLAGS_MODULE += $(AARCH64_CFLAGS)
@@ -652,7 +652,7 @@ endif
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os -g0 -pipe
 else
-KBUILD_CFLAGS	+= -O3 -g0 -pipe
+KBUILD_CFLAGS	+= -Ofast -g0 -pipe
 endif
 
 KBUILD_CFLAGS 	+= $(call cc-disable-warning,maybe-uninitialized,) \
