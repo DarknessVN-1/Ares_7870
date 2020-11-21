@@ -39,7 +39,7 @@ CR_DTB=$CR_DIR/boot.img-dtb
 CR_VERSION=V6.0
 CR_NAME=AresKernel
 # Thread count
-CR_JOBS=$(nproc --ignore=1)
+CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
 CR_ANDROID=q
 CR_PLATFORM=10.0.0
