@@ -1,4 +1,4 @@
-  #!/bin/bash
+#!/bin/bash
 #
 # AresKernel script
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,8 @@
 CR_DIR=$(pwd)
 # Define toolchan path
 CR_TC=~/Android/Toolchains/aarch64-linux-gnu/bin/aarch64-linux-gnu-
+# Define ccache dir
+export CCACHE_DIR=/target/.ccache
 # Define proper arch and dir for dts files
 CR_DTS=arch/arm64/boot/dts
 CR_DTS_TREBLE=arch/arm64/boot/universal7870.dtsi
