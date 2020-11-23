@@ -1888,7 +1888,7 @@ tfa_cont_write_profile(int dev_idx, int prof_idx, int vstep_idx)
 	}
 
 	if (tfa98xx_cnt_verbose) {
-		tfa98xx_trace_printk("device:%s profile:%s vstep:%d\n",
+		tfa98xx_printk("device:%s profile:%s vstep:%d\n",
 				     tfa_cont_device_name(dev_idx),
 				     tfa_cont_profile_name(dev_idx, prof_idx),
 				     vstep_idx);
@@ -2168,7 +2168,7 @@ tfa_cont_write_files_vstep(int dev_idx, int prof_idx, int vstep_idx)
 		return TFA98XX_ERROR_BAD_PARAMETER;
 
 	if (tfa98xx_cnt_verbose)
-		tfa98xx_trace_printk("device:%s profile:%s vstep:%d\n",
+		tfa98xx_printk("device:%s profile:%s vstep:%d\n",
 				     tfa_cont_device_name(dev_idx),
 				     tfa_cont_profile_name(dev_idx, prof_idx),
 				     vstep_idx);

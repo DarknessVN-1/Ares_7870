@@ -538,7 +538,7 @@ static int exynos_target(struct cpufreq_policy *policy,
 	unsigned int index;
 	int ret = 0;
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
-	trace_printk("IPA:%s:%d Called by %x, with target_freq %d", __PRETTY_FUNCTION__, __LINE__,
+	printk("IPA:%s:%d Called by %x, with target_freq %d", __PRETTY_FUNCTION__, __LINE__,
 			(unsigned int) __builtin_return_address (0), target_freq);
 #endif
 
@@ -568,7 +568,7 @@ static int exynos_target(struct cpufreq_policy *policy,
 	target_freq = exynos_verify_pm_qos_limit(policy, target_freq, cur);
 
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
-	trace_printk("IPA:%s:%d will apply %d ", __PRETTY_FUNCTION__, __LINE__, target_freq);
+	printk("IPA:%s:%d will apply %d ", __PRETTY_FUNCTION__, __LINE__, target_freq);
 #endif
 
 	if (cpufreq_frequency_table_target(policy, freq_table,
@@ -817,7 +817,7 @@ void ipa_set_clamp(int cpu, unsigned int clamp_freq, unsigned int gov_target)
 	}
 #endif
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
-	trace_printk("IPA: %s:%d: set clamps for cpu %d to %d (curr was %d)",
+	printk("IPA: %s:%d: set clamps for cpu %d to %d (curr was %d)",
 		     __PRETTY_FUNCTION__, __LINE__, cpu, clamp_freq, freq);
 #endif
 

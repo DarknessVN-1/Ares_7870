@@ -439,7 +439,7 @@ struct trace_data {
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
 static void print_trace(struct trace_data *td)
 {
-	trace_printk("gpu_freq_in=%d gpu_util=%d gpu_nutil=%d "
+	printk("gpu_freq_in=%d gpu_util=%d gpu_nutil=%d "
 		"big_freq_in=%d big_util=%d big_nutil=%d "
 		"little_freq_in=%d little_util=%d little_nutil=%d "
 		"Pgpu_in=%d Pbig_in=%d Plittle_in=%d Pcpu_in=%d Ptot_in=%d "
@@ -640,7 +640,7 @@ static int F_ctlr(int curr)
 	if (out > config->soc_max_power)
 		out = config->soc_max_power;
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
-	trace_printk("curr=%d err=%d err_integral=%d p=%d i=%d d=%d out=%d\n",
+	printk("curr=%d err=%d err_integral=%d p=%d i=%d d=%d out=%d\n",
 		     curr, frac_to_int(err), frac_to_int(ctlr->err_integral),
 		     (int) frac_to_int(p), (int) frac_to_int(i), (int) frac_to_int(d),
 		     (int) out);

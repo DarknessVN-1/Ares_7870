@@ -53,7 +53,7 @@ void update_cpu_metric(int cpu, u64 now, u64 delta_idle, u64 delta_time,
 	pcpuload->frequency = policy->cur;
 	pcpuload->last_update = now;
 #ifdef CONFIG_CPU_THERMAL_IPA_DEBUG
-	trace_printk("cpu_load: cpu: %d freq: %u load: %u\n", cpu, policy->cur, load);
+	printk("cpu_load: cpu: %d freq: %u load: %u\n", cpu, policy->cur, load);
 #endif
 }
 

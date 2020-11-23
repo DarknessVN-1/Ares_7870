@@ -2758,7 +2758,7 @@ retry:
 				subaddress, value, ret < 0 ? "Error!!" : "");
 
 		if (tfa98xx_ftrace_regs)
-			tfa98xx_trace_printk
+			tfa98xx_printk
 				("\tWR     reg=0x%02x, val=0x%04x %s\n",
 				 subaddress, value, ret < 0 ? "Error!!" : "");
 	} else {
@@ -2803,7 +2803,7 @@ retry:
 				"RD   reg=0x%02x, val=0x%04x %s\n",
 				subaddress, *val, ret < 0 ? "Error!!" : "");
 		if (tfa98xx_ftrace_regs)
-			tfa98xx_trace_printk
+			tfa98xx_printk
 				("\tRD     reg=0x%02x, val=0x%04x %s\n",
 				 subaddress, *val, ret < 0 ? "Error!!" : "");
 	} else {
@@ -2857,7 +2857,7 @@ enum tfa98xx_error tfa98xx_read_data(tfa98xx_handle_t handle,
 			dev_dbg(&tfa98xx_client->dev,
 				"RD-DAT reg=0x%02x, len=%d\n", reg, len);
 		if (tfa98xx_ftrace_regs)
-			tfa98xx_trace_printk
+			tfa98xx_printk
 				("\t\tRD-DAT reg=0x%02x, len=%d\n", reg, len);
 	} else {
 		pr_err("No device available\n");
@@ -2893,7 +2893,7 @@ retry:
 				dev_dbg(&tfa98xx->i2c->dev,
 					"  WR-RAW len=%d\n", len);
 			if (tfa98xx_ftrace_regs)
-				tfa98xx_trace_printk
+				tfa98xx_printk
 					("\t\tWR-RAW len=%d\n", len);
 			return TFA98XX_ERROR_OK;
 		}

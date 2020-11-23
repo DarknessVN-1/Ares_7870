@@ -21,9 +21,9 @@
 	__func__, __FILE__, __LINE__, e); }
 
 #if defined(CONFIG_TRACING) && defined(DEBUG)
-	#define tfa98xx_trace_printk(...) trace_printk(__VA_ARGS__)
+	#define tfa98xx_printk(...) printk(__VA_ARGS__)
 #else
-	#define tfa98xx_trace_printk(...)
+	#define tfa98xx_printk(...)
 #endif
 
 #define TFA98XX_MAX_REGISTER              0xff

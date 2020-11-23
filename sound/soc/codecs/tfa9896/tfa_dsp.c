@@ -738,7 +738,7 @@ tfa_probe(unsigned char slave_address, tfa98xx_handle_t *p_handle)
 		*p_handle = idx;
 		error = TFA98XX_ERROR_OK;
 #ifdef __KERNEL__ /* don't spam userspace with information */
-		tfa98xx_trace_printk("slave:0x%02x revid:0x%04x\n",
+		tfa98xx_printk("slave:0x%02x revid:0x%04x\n",
 				     slave_address, rev);
 		pr_debug("slave:0x%02x revid:0x%04x\n", slave_address, rev);
 #endif
@@ -3818,7 +3818,7 @@ tfa_run_speaker_boost(tfa98xx_handle_t handle, int force, int profile)
 		handles_local[handle].ext_dsp, profile);
 
 #ifdef __KERNEL__ /* TODO try to combine this with the pr_debug below */
-	tfa98xx_trace_printk("%s %sstart\n",
+	tfa98xx_printk("%s %sstart\n",
 		tfa_cont_device_name(handle),
 		value ? "cold" : "warm");
 #endif
