@@ -204,9 +204,6 @@ static void try_to_fix_pino(struct inode *inode)
 /* P190723-05556 */
 static inline bool should_issue_flush(struct f2fs_sb_info *sbi)
 {
-	if (hard_reset_key_pressed)
-			return true;
-
 	if (F2FS_OPTION(sbi).fsync_mode != FSYNC_MODE_NOBARRIER)
 		return true;
 

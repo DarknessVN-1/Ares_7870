@@ -1152,10 +1152,6 @@ static inline void exynos_ss_hook_logbuf(const char *buf, size_t size)
 
 		if (exynos_ss_check_eob(item, size)) {
 			item->curr_ptr = item->head_ptr;
-#ifdef CONFIG_SEC_PM_DEBUG
-			sec_log_full = true;
-#endif
-			*((unsigned long long *)(item->head_ptr + item->entry.size - (size_t)0x08)) = SEC_LKMSG_MAGICKEY;
 		}
 
 		memcpy(item->curr_ptr, buf, size);
