@@ -3507,12 +3507,6 @@ static int __init sec_log_late_init(void)
 	if (!item->head_ptr)
 		return 0;
 
-	entry = proc_create("sec_log", S_IRUSR | S_IRGRP, NULL, &sec_log_file_ops);
-	if (!entry) {
-		pr_err("%s: failed to create proc entry\n", __func__);
-		return 0;
-	}
-
 	proc_set_size(entry, item->entry.size);
 
 	return 0;
@@ -3586,13 +3580,6 @@ static const struct file_operations schedinfo_proc_fops = {
 	.release	= single_release,
 };
 
-static int __init proc_schedinfo_init(void)
-{
-	proc_create("schedinfo", 0, NULL, &schedinfo_proc_fops);
-	return 0;
-}
-late_initcall(proc_schedinfo_init);
-
 static int irqinfo_proc_show(struct seq_file *m, void *v)
 {
 	unsigned cpu=0;
@@ -3640,12 +3627,4 @@ static const struct file_operations irqinfo_proc_fops = {
 	.llseek		= seq_lseek,
 	.release	= single_release,
 };
-
-static int __init proc_irqinfo_init(void)
-{
-	proc_create("irqinfo", 0, NULL, &irqinfo_proc_fops);
-	return 0;
-}
-
-late_initcall(proc_irqinfo_init);
 #endif
