@@ -8223,8 +8223,6 @@ static void bt532_run_rawdata(struct bt532_ts_info *info)
 }
 
 #if defined(CONFIG_TOUCHSCREEN_DUMP_MODE)
-#include <linux/sec_debug.h>
-extern struct tsp_dump_callbacks dump_callbacks;
 static struct delayed_work *p_ghost_check;
 
 static void bt532_check_rawdata(struct work_struct *work)
@@ -8590,7 +8588,6 @@ static int bt532_ts_probe(struct i2c_client *client,
 	schedule_delayed_work(&info->work_read_info, msecs_to_jiffies(5000));
 
 #if defined(CONFIG_TOUCHSCREEN_DUMP_MODE)
-	dump_callbacks.inform_dump = dump_tsp_log;
 	INIT_DELAYED_WORK(&info->ghost_check, bt532_check_rawdata);
 	p_ghost_check = &info->ghost_check;
 #endif

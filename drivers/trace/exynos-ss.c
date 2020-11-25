@@ -1396,9 +1396,6 @@ extern void check_crash_keys_in_user(unsigned int code, int onoff);
 #endif
 
 #ifdef CONFIG_EXYNOS_SNAPSHOT_CRASH_KEY
-#ifdef CONFIG_TOUCHSCREEN_DUMP_MODE
-struct tsp_dump_callbacks dump_callbacks;
-#endif
 void exynos_ss_check_crash_key(unsigned int code, int value)
 {
 	static bool volup_p;
