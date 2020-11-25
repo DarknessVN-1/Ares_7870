@@ -322,7 +322,10 @@ static int decon_debug_ss_log_print(struct seq_file *m)
 
 	for (i = 0; i < ss_log_max; i++) {
 		idx = (start + i) % DISP_EVENT_LOG_MAX;
+		log = &decon->disp_ss_log[idx];
 
+		if (!ktime_to_ns(log->time))
+			continue;
 		tv = ktime_to_timeval(log->time);
 		if (i && !(i % 10))
 			abd_printf(m, "\n");
