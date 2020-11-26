@@ -2432,7 +2432,6 @@ static int decon_prevent_size_mismatch
 	u32 decon_line = 0, dsim_line = 0;
 	u32 decon_hoz = 0, dsim_hoz = 0;
 	u32 need_save = true;
-	struct disp_ss_size_info info;
 
 	if (decon->pdata->psr_mode == DECON_VIDEO_MODE)
 		return 0;
@@ -2450,12 +2449,6 @@ static int decon_prevent_size_mismatch
 			goto wait_done;
 
 		if (need_save) {
-			/* TODO: Save a err data */
-			info.w_in = decon_hoz;
-			info.h_in = decon_line;
-			info.w_out = dsim_hoz;
-			info.h_out = dsim_line;
-			DISP_SS_EVENT_SIZE_ERR_LOG(&decon->sd, &info);
 			need_save = false;
 		}
 

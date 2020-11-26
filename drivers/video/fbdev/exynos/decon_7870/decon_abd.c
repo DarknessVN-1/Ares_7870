@@ -241,42 +241,6 @@ int decon_abd_register_pin_handler(int irq, irq_handler_t handler, void *dev_id)
 	return 0;
 }
 
-static int decon_debug_pin_log_print(struct seq_file *m, struct abd_trace *trace)
-{
-	int i = 0;
-	struct timeval tv;
-	struct abd_log *log;
-
-	if (!trace->count)
-		return 0;
-
-	abd_printf(m, "%s total count: %d\n", trace->name, trace->count);
-	for (i = 0; i < ABD_LOG_MAX; i++) {
-		log = &trace->log[i];
-		if (!log->stamp)
-			continue;
-		tv = ns_to_timeval(log->stamp);
-		abd_printf(m, "time: %lu.%06lu level: %d onoff: %d state: %d\n",
-			(unsigned long)tv.tv_sec, tv.tv_usec, log->level, log->onoff, log->state);
-	}
-
-	return 0;
-}
-
-static int decon_debug_pin_print(struct seq_file *m, struct abd_pin *pin)
-{
-	if (!pin->irq)
-		return 0;
-
-	abd_printf(m, "[%s]\n", pin->name);
-
-	decon_debug_pin_log_print(m, &pin->p_first);
-	decon_debug_pin_log_print(m, &pin->p_lcdon);
-	decon_debug_pin_log_print(m, &pin->p_event);
-
-	return 0;
-}
-
 static const char *sync_status_str(int status)
 {
 	if (status == 0)
@@ -287,89 +251,6 @@ static const char *sync_status_str(int status)
 
 	return "error";
 }
-
-static int decon_debug_fto_print(struct seq_file *m, struct abd_trace *trace)
-{
-	int i = 0;
-	struct timeval tv;
-	struct abd_log *log;
-
-	if (!trace->count)
-		return 0;
-
-	abd_printf(m, "%s total count: %d\n", trace->name, trace->count);
-	for (i = 0; i < ABD_LOG_MAX; i++) {
-		log = &trace->log[i];
-		if (!log->stamp)
-			continue;
-		tv = ns_to_timeval(log->stamp);
-		abd_printf(m, "time: %lu.%06lu, %d, %s: %s\n",
-			(unsigned long)tv.tv_sec, tv.tv_usec, log->winid, log->fence.name, sync_status_str(atomic_read(&log->fence.status)));
-	}
-
-	return 0;
-}
-
-static int decon_debug_ss_log_print(struct seq_file *m)
-{
-	unsigned int ss_log_max = 200, i, idx;
-	struct timeval tv;
-	struct decon_device *decon = m ? m->private : get_decon_drvdata(0);
-	int start = atomic_read(&decon->disp_ss_log_idx);
-	struct disp_ss_log *log;
-
-	start = (start > ss_log_max) ? start - ss_log_max + 1 : 0;
-
-	for (i = 0; i < ss_log_max; i++) {
-		idx = (start + i) % DISP_EVENT_LOG_MAX;
-		log = &decon->disp_ss_log[idx];
-
-		if (!ktime_to_ns(log->time))
-			continue;
-		tv = ktime_to_timeval(log->time);
-		if (i && !(i % 10))
-			abd_printf(m, "\n");
-		abd_printf(m, "%lu.%06lu %11u, ", (unsigned long)tv.tv_sec, tv.tv_usec, log->type);
-	}
-
-	abd_printf(m, "\n");
-
-	return 0;
-}
-
-static int decon_debug_show(struct seq_file *m, void *unused)
-{
-	struct decon_device *decon = m ? m->private : get_decon_drvdata(0);
-	struct abd_protect *abd = &decon->abd;
-
-	abd_printf(m, "========== LCD DEBUG ==========\n");
-	abd_printf(m, "isync: %d\n", decon->ignore_vsync);
-	decon_debug_pin_print(m, &abd->pin[ABD_PIN_PCD]);
-	decon_debug_pin_print(m, &abd->pin[ABD_PIN_DET]);
-	decon_debug_pin_print(m, &abd->pin[ABD_PIN_ERR]);
-
-	abd_printf(m, "========== FTO DEBUG ==========\n");
-	decon_debug_fto_print(m, &abd->f_first);
-	decon_debug_fto_print(m, &abd->f_lcdon);
-	decon_debug_fto_print(m, &abd->f_event);
-
-	abd_printf(m, "===============================\n");
-	decon_debug_ss_log_print(m);
-
-	return 0;
-}
-
-static int decon_debug_open(struct inode *inode, struct file *file)
-{
-	return single_open(file, decon_debug_show, inode->i_private);
-}
-
-static const struct file_operations decon_debug_fops = {
-	.read = seq_read,
-	.llseek = seq_lseek,
-	.release = seq_release,
-	.open = decon_debug_open,
-};
 
 static int decon_abd_reboot_notifier(struct notifier_block *this,
 		unsigned long code, void *unused)
@@ -382,13 +263,6 @@ static int decon_abd_reboot_notifier(struct notifier_block *this,
 	decon_abd_enable(decon, 0);
 
 	abd_printf(NULL, "isync: %d\n", decon->ignore_vsync);
-	decon_debug_pin_print(NULL, &abd->pin[ABD_PIN_PCD]);
-	decon_debug_pin_print(NULL, &abd->pin[ABD_PIN_DET]);
-	decon_debug_pin_print(NULL, &abd->pin[ABD_PIN_ERR]);
-
-	decon_debug_fto_print(NULL, &abd->f_first);
-	decon_debug_fto_print(NULL, &abd->f_lcdon);
-	decon_debug_fto_print(NULL, &abd->f_event);
 
 	decon_info("-- %s: %lu\n",  __func__, code);
 
@@ -483,8 +357,6 @@ int decon_abd_register(struct decon_device *decon)
 
 	if (ret < 0)
 		goto exit;
-
-	debugfs_create_file("debug", 0444, decon->debug_root, decon, &decon_debug_fops);
 
 	abd->reboot_notifier.notifier_call = decon_abd_reboot_notifier;
 	register_reboot_notifier(&abd->reboot_notifier);
