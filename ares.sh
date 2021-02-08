@@ -17,7 +17,7 @@
 # Main Dir
 CR_DIR=$(pwd)
 # Define toolchan path
-CR_TC=/home/f_duca00/gcc-linaro-7.5.0/bin/aarch64-linux-gnu-
+CR_TC=/home/f_duca00/gcc/bin/aarch64-none-linux-gnu-
 # Define proper arch and dir for dts files
 CR_DTS=arch/arm64/boot/dts
 CR_DTS_TREBLE=arch/arm64/boot/universal7870.dtsi
@@ -34,8 +34,8 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=V8.0
-CR_NAME=AresKernel
+CR_VERSION=
+CR_NAME=perf+
 # Thread count
 CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
@@ -180,7 +180,7 @@ fi
 
 BUILD_IMAGE_NAME()
 {
-	CR_IMAGE_NAME=$CR_NAME-$CR_VERSION-$CR_VARIANT
+	CR_IMAGE_NAME=$CR_NAME
 
   # Flashable_script
   if [ $CR_VARIANT = $CR_VARIANT_A320X-TREBLE ]; then
@@ -293,7 +293,7 @@ BUILD_OUT()
     echo "Kernel Image Size = $sizT Kb"
     echo "Boot Image   Size = $sizkT Kb"
     echo "Image Generated at $CR_PRODUCT/$CR_IMAGE_NAME.img"
-    echo "Zip Generated at $CR_PRODUCT/$CR_NAME-$CR_VERSION-$FL_VARIANT.zip"
+    echo "Zip Generated at $CR_PRODUCT/$CR_NAME.zip"
     echo "Press Any key to end the script"
     echo "----------------------------------------------"
 }
