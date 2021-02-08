@@ -17,9 +17,7 @@
 # Main Dir
 CR_DIR=$(pwd)
 # Define toolchan path
-CR_TC=~/Android/Toolchains/aarch64-linux-gnu/bin/aarch64-linux-gnu-
-# Define ccache dir
-export CCACHE_DIR=/target/.ccache
+CR_TC=/home/f_duca00/gcc-linaro-7.5.0/bin/aarch64-linux-gnu-
 # Define proper arch and dir for dts files
 CR_DTS=arch/arm64/boot/dts
 CR_DTS_TREBLE=arch/arm64/boot/universal7870.dtsi
@@ -36,7 +34,7 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=V7.0
+CR_VERSION=V8.0
 CR_NAME=AresKernel
 # Thread count
 CR_JOBS=$(nproc)
