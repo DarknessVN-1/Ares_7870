@@ -34,8 +34,8 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=
-CR_NAME=90hz
+CR_VERSION=90hz
+CR_NAME=AresKernel
 # Thread count
 CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
@@ -180,7 +180,7 @@ fi
 
 BUILD_IMAGE_NAME()
 {
-	CR_IMAGE_NAME=$CR_NAME
+	CR_IMAGE_NAME=$CR_NAME-$CR_VERSION-$CR_VARIANT
 
   # Flashable_script
   if [ $CR_VARIANT = $CR_VARIANT_A320X-TREBLE ]; then
