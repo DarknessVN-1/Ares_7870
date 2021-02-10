@@ -34,8 +34,8 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=
-CR_NAME=perf+
+CR_VERSION=V1
+CR_NAME=NevaKernel
 # Thread count
 CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
@@ -180,7 +180,7 @@ fi
 
 BUILD_IMAGE_NAME()
 {
-	CR_IMAGE_NAME=$CR_NAME
+	CR_IMAGE_NAME=$CR_NAME-$CR_VERSION-$CR_VARIANT
 
   # Flashable_script
   if [ $CR_VARIANT = $CR_VARIANT_A320X-TREBLE ]; then
@@ -211,8 +211,8 @@ BUILD_IMAGE_NAME()
     FL_VARIANT="J710X-TREBLE"
     FL_MODEL=j7xelte
   fi
-  if [ $CR_VARIANT = $CR_VARIANT_J710X-ONEUI ]; then
-    FL_VARIANT="J710X-OneUI"
+  if [ $CR_VARIANT = $CR_VARIANT_J710X-Tanjiro ]; then
+    FL_VARIANT="J710X-Tanjiro"
     FL_MODEL=j7xelte
   fi
   if [ $CR_VARIANT = $CR_VARIANT_J701X-TREBLE ]; then
@@ -235,8 +235,8 @@ BUILD_IMAGE_NAME()
     FL_VARIANT="J600X-TREBLE"
     FL_MODEL=j6lte
   fi
-  if [ $CR_VARIANT = $CR_VARIANT_J600X-ONEUI ]; then
-    FL_VARIANT="J600X-OneUI"
+  if [ $CR_VARIANT = $CR_VARIANT_J600X-Tanjiro ]; then
+    FL_VARIANT="J600X-Tanjiro"
     FL_MODEL=j6lte
   fi
   if [ $CR_VARIANT = $CR_VARIANT_A600X-TREBLE ]; then
@@ -293,7 +293,7 @@ BUILD_OUT()
     echo "Kernel Image Size = $sizT Kb"
     echo "Boot Image   Size = $sizkT Kb"
     echo "Image Generated at $CR_PRODUCT/$CR_IMAGE_NAME.img"
-    echo "Zip Generated at $CR_PRODUCT/$CR_NAME.zip"
+    echo "Zip Generated at $CR_PRODUCT/$CR_NAME-$CR_VERSION-$FL_VARIANT.zip"
     echo "Press Any key to end the script"
     echo "----------------------------------------------"
 }
