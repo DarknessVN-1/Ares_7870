@@ -34,8 +34,9 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=V1-J710X-Tanjiro
-CR_NAME=NevaKernel
+CR_VERSION=V6.9
+CR_NAME=BullshitKernel
+CR_CODENAME=UltraProMax
 # Thread count
 CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
