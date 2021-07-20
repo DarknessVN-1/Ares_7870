@@ -17,7 +17,7 @@
 # Main Dir
 CR_DIR=$(pwd)
 # Define toolchan path
-CR_TC=/compiler/gcc/bin/aarch64-none-linux-gnu-
+CR_TC=/compiler/bin/aarch64-none-linux-gnu-
 # Define proper arch and dir for dts files
 CR_DTS=arch/arm64/boot/dts
 CR_DTS_TREBLE=arch/arm64/boot/universal7870.dtsi
@@ -34,8 +34,9 @@ CR_KERNEL=$CR_DIR/arch/arm64/boot/Image
 # Compiled dtb by dtbtool
 CR_DTB=$CR_DIR/boot.img-dtb
 # Kernel Name and Version
-CR_VERSION=
-CR_NAME=perf+
+CR_VERSION=6.9
+CR_NAME=KangKernel
+CR_CODENAME=Bullshit
 # Thread count
 CR_JOBS=$(nproc)
 # Target android version and platform (7/n/8/o/9/p)
@@ -107,41 +108,10 @@ FL_SCRIPT=$FL_EXPORT/META-INF/com/google/android/updater-script
 #####################################################
 
 # Script functions
-
-read -p "Clean source (y/n) > " yn
-if [ "$yn" = "Y" -o "$yn" = "y" ]; then
-     echo "Clean Build"
-     CR_CLEAN="1"
-else
-     echo "Dirty Build"
-     CR_CLEAN="0"
-fi
-
-# TREBLE / OneUI
-read -p "Variant? (1 (oneUI) | 2 (TREBLE) > " aud
-if [ "$aud" = "TREBLE" -o "$aud" = "2" ]; then
-     echo "Build TREBLE Variant"
-     CR_MODE="2"
-     CR_HALLIC="1"
-     CR_PERMISSIVE="0"
-else
-     echo "Build OneUI Variant"
-     CR_MODE="1"
-     CR_HALLIC="1"
-     CR_PERMISSIVE="0"
-fi
-
-# Options
-read -p "Kernel SU? (y/n) > " yn
-if [ "$yn" = "Y" -o "$yn" = "y" ]; then
-     echo " WARNING : KernelSU Enabled!"
-     export CONFIG_ASSISTED_SUPERUSER=y
-     CR_ROOT="1"
-fi
-  if [ $CR_HALLIC = "1" ]; then
-    echo " Inverting HALL_IC Status"
-    echo "CONFIG_HALL_EVENT_REVERSE=y" >> $CR_DIR/arch/$CR_ARCH/configs/tmp_defconfig
-  fi
+CR_CLEAN="1"
+CR_MODE="2"
+CR_HALLIC="1"
+CR_PERMISSIVE="0"
 
 BUILD_CLEAN()
 {
@@ -180,7 +150,7 @@ fi
 
 BUILD_IMAGE_NAME()
 {
-	CR_IMAGE_NAME=$CR_NAME
+	CR_IMAGE_NAME=$CR_NAME-$CR_VERSION-$CR_CODENAME
 
   # Flashable_script
   if [ $CR_VARIANT = $CR_VARIANT_A320X-TREBLE ]; then
