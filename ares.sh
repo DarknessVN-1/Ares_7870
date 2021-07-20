@@ -17,7 +17,7 @@
 # Main Dir
 CR_DIR=$(pwd)
 # Define toolchan path
-CR_TC=/home/f_duca00/gcc/bin/aarch64-none-linux-gnu-
+CR_TC=/compiler/gcc/bin/aarch64-none-linux-gnu-
 # Define proper arch and dir for dts files
 CR_DTS=arch/arm64/boot/dts
 CR_DTS_TREBLE=arch/arm64/boot/universal7870.dtsi
